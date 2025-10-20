@@ -1,0 +1,78 @@
+🔹 Docker Build Commands for Each Service
+1. User Service
+cd User_Service
+mvn clean package -DskipTests
+docker build -t walletwave-user:0.1 .
+
+2. Wallet Service
+cd Wallet_Service
+mvn clean package -DskipTests
+docker build -t walletwave-wallet:0.1 .
+
+3. Transaction Service
+cd Transaction_Service
+mvn clean package -DskipTests
+docker build -t walletwave-transaction:0.1 .
+
+4. Notification Service
+cd Notification_Service
+mvn clean package -DskipTests
+docker build -t walletwave-notification:0.1 .
+
+
+//Docker compose commands{  docker compose down -v           docker compose up --build}
+
+
+
+//Docker Redis Command{       docker exec -it walletwave-redis redis-cli    }
+
+
+
+//Sql change server command      {mysql -h 127.0.0.1 -P 3307 -u root -p}
+
+
+
+//Docker database command{    docker exec -it walletwave-mysql mysql -u root -p        SHOW DATABASES;}
+
+
+
+
+If I want to do from starting then use this----------------------------
+
+
+# Step 1: Stop and remove all containers
+Write-Host "🛑 Stopping all containers..."
+docker stop $(docker ps -aq) 2>$null
+docker rm -f $(docker ps -aq) 2>$null
+
+# Step 2: Remove all images
+Write-Host "🧹 Removing all images..."
+docker rmi -f $(docker images -aq) 2>$null
+
+# Step 3: Remove all volumes and networks
+Write-Host "🗑️ Removing unused volumes & networks..."
+docker system prune -a --volumes -f
+
+# Step 4: Rebuild User Service
+Write-Host "⚙️ Building User Service image..."
+cd User_Service
+mvn clean package -DskipTests
+docker build -t walletwave-user:0.1 .
+
+# Step 5: Rebuild Wallet Service
+Write-Host "⚙️ Building Wallet Service image..."
+cd ../Wallet_Service
+mvn clean package -DskipTests
+docker build -t walletwave-wallet:0.1 .
+
+# Step 6: Rebuild Transaction Service
+Write-Host "⚙️ Building Transaction Service image..."
+cd ../Transaction_Service
+mvn clean package -DskipTests
+docker build -t walletwave-transaction:0.1 .
+
+# Step 7: Go back to root and start all services
+cd ..
+Write-Host "🚀 Starting Docker Compose..."
+docker compose up --build
+

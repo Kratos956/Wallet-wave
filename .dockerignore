@@ -1,0 +1,10 @@
+target
+.git
+.vscode
+.idea
+*.log
+*.tmp
+**/node_modules
+.mvn
+.settings
+.DS_Store

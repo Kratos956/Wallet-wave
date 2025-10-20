@@ -1,0 +1,9 @@
+## API Documentation
+
+Swagger UI is available for each service:
+
+## API Documentation
+
+- User Service → http://localhost:8000/swagger-ui/index.html
+- Wallet Service → http://localhost:9000/swagger-ui/index.html
+- Transaction Service → http://localhost:8080/swagger-ui/index.html
