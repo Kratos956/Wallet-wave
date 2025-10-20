@@ -50,8 +50,10 @@ jobs:
       - name: Build Docker image
         run: |
           cd ${{ matrix.service }}
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:latest .
+          lower_name=$(echo "${{ matrix.service }}" | tr '[:upper:]' '[:lower:]')
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${lower_name}:latest .
 
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:latest
+          lower_name=$(echo "${{ matrix.service }}" | tr '[:upper:]' '[:lower:]')
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${lower_name}:latest
