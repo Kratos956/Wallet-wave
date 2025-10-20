@@ -41,6 +41,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Build JAR again (ensure target exists)
+        run: |
+          cd ${{ matrix.service }}
+          mvn clean package -DskipTests=true
+          cd ..
+
       - name: Log in to DockerHub
         uses: docker/login-action@v3
         with:
